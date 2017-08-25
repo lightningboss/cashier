@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Divider from './Divider';
+import Price from './Price';
 import OrderButton from './OrderButton';
 
 import './App.css';
@@ -15,7 +16,7 @@ class App extends Component {
     { type: 'gummibärchen', label: 'Gummibärchen', price: 3.5 },
     { type: 'knabber', label: 'Knabber', price: 1.95 },
   ]
-  onAddToOrders = (item) => {
+  onAddOrder = (item) => {
     this.setState({ orders: [...this.state.orders, item] });
   }
   onRemoveLastOrder = (item) => {
@@ -24,16 +25,13 @@ class App extends Component {
   onResetOrders = (item) => {
     this.setState({ orders: [] });
   }
-  formatPrice(price) {
-    return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price);
-  }
   getPriceForOrderType(type) {
     return this.types.find(t => t.type === type).price;
   }
   getLabelForOrderType(type) {
     return this.types.find(t => t.type === type).label;
   }
-  getSummedPriceOfAllOrders = () => {
+  getTotalPrice = () => {
     const { orders } = this.state;
     return orders.reduce((sum, order) => sum + this.getPriceForOrderType(order), 0);
   }
@@ -43,7 +41,7 @@ class App extends Component {
         <h1>Cashier</h1>
         <div>
           {this.types.map(({ type, label }) => (
-            <OrderButton key={type} label={label} type={type} handleOnClick={this.onAddToOrders} />
+            <OrderButton key={type} label={label} type={type} handleOnClick={this.onAddOrder} />
           ))}
         </div>
 
@@ -57,7 +55,7 @@ class App extends Component {
         {this.state.orders.map((orderType, i) => (
           <div key={i} className="order-item">
             <span>{this.getLabelForOrderType(orderType)}</span>
-            <span>{this.formatPrice(this.getPriceForOrderType(orderType))}</span>
+            <Price value={this.getPriceForOrderType(orderType)} />
           </div>
         ))}
 
@@ -66,8 +64,8 @@ class App extends Component {
         <div>
           <h2 className="order-item">
             <span>Summe:</span>
-            <span>{this.formatPrice(this.getSummedPriceOfAllOrders())}</span>
-            </h2>
+            <Price value={this.getTotalPrice()} />
+          </h2>
         </div>
       </div>
     );
