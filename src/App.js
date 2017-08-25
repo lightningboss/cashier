@@ -10,31 +10,39 @@ class App extends Component {
   state = {
     orders: [],
   }
+
   types = [
     { type: 'cola', label: 'Cola', price: 4 },
     { type: 'fanta', label: 'Fanta', price: 4 },
     { type: 'gummibärchen', label: 'Gummibärchen', price: 3.5 },
     { type: 'knabber', label: 'Knabber', price: 1.95 },
   ]
+
   onAddOrder = (item) => {
     this.setState({ orders: [...this.state.orders, item] });
   }
+
   onRemoveLastOrder = (item) => {
     this.setState({ orders: [...this.state.orders.slice(0, -1)] });
   }
+
   onResetOrders = (item) => {
     this.setState({ orders: [] });
   }
+
   getPriceForOrderType(type) {
     return this.types.find(t => t.type === type).price;
   }
+
   getLabelForOrderType(type) {
     return this.types.find(t => t.type === type).label;
   }
+
   getTotalPrice = () => {
     const { orders } = this.state;
     return orders.reduce((sum, order) => sum + this.getPriceForOrderType(order), 0);
   }
+
   render() {
     return (
       <div className="card">
