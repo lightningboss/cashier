@@ -39,7 +39,7 @@ class App extends Component {
     return (
       <div className="card">
         <h1>Cashier</h1>
-        <div>
+        <div className="button-group">
           {this.types.map(({ type, label }) => (
             <OrderButton key={type} label={label} type={type} handleOnClick={this.onAddOrder} />
           ))}
@@ -47,8 +47,10 @@ class App extends Component {
 
         <Divider />
 
-        <button onClick={this.onRemoveLastOrder}>Stornieren</button>
-        <button onClick={this.onResetOrders}>Reset</button>
+        <div className="button-group">
+          <button onClick={this.onRemoveLastOrder}>Stornieren</button>
+          <button onClick={this.onResetOrders}>Reset</button>
+        </div>
 
         {this.state.orders.length > 0 && <Divider />}
 
