@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import Divider from './Divider';
 import OrderButton from './OrderButton';
 
 import './App.css';
@@ -40,31 +42,27 @@ class App extends Component {
       <div className="card">
         <h1>Cashier</h1>
         <div>
-          {
-            this.types.map(({ type, label }) => (
-              <OrderButton
-                key={type}
-                label={label}
-                type={type}
-                handleOnClick={this.onAddToOrders}
-              />
-            ))
-          }
+          {this.types.map(({ type, label }) => (
+            <OrderButton key={type} label={label} type={type} handleOnClick={this.onAddToOrders} />
+          ))}
         </div>
-        <div>
-          <hr />
-        </div>
+
+        <Divider />
+
         <button onClick={this.onRemoveLastOrder}>Stornieren</button>
         <button onClick={this.onResetOrders}>Reset</button>
+
+        {this.state.orders.length > 0 && <Divider />}
+
         {this.state.orders.map((orderType, i) => (
           <div key={i} className="order-item">
             <span>{this.getLabelForOrderType(orderType)}</span>
             <span>{this.formatPrice(this.getPriceForOrderType(orderType))}</span>
           </div>
         ))}
-        <div>
-          <hr />
-        </div>
+
+        <Divider />
+
         <div>
           <h2 className="order-item">
             <span>Summe:</span>
