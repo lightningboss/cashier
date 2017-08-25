@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { getPriceForOrderType } from './lib/helpers';
 
 import Card from './components/Card';
 import Divider from './components/Divider';
 import PriceItem from './components/PriceItem';
+import OrderList from './components/OrderList';
 import OrderButton from './components/OrderButton';
 
 import './App.css';
@@ -31,17 +33,9 @@ class App extends Component {
     this.setState({ orders: [] });
   }
 
-  getPriceForOrderType = (type) => {
-    return this.types.find(t => t.type === type).price;
-  }
-
-  getLabelForOrderType = (type) => {
-    return this.types.find(t => t.type === type).label;
-  }
-
   getTotalPrice = () => {
     const { orders } = this.state;
-    return orders.reduce((sum, order) => sum + this.getPriceForOrderType(order), 0);
+    return orders.reduce((sum, order) => sum + getPriceForOrderType(order, this.types), 0);
   }
 
   render() {
@@ -63,15 +57,7 @@ class App extends Component {
         </div>
 
         {orders.length > 0 && <Divider />}
-
-        {orders.map((orderType, i) => (
-          <PriceItem
-            key={i}
-            label={this.getLabelForOrderType(orderType)}
-            price={this.getPriceForOrderType(orderType)}
-          />
-        ))}
-
+        <OrderList orders={orders} types={this.types} />
         <Divider />
 
         <h2>
