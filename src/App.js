@@ -74,14 +74,9 @@ class App extends Component {
 
         <Divider />
 
-        <div>
-          <h2>
-            <PriceItem
-              label="Total"
-              price={this.getTotalPrice()}
-            />
-          </h2>
-        </div>
+        <h2>
+          <PriceItem label="Total" price={this.getTotalPrice()} />
+        </h2>
       </Card>
     );
   }
