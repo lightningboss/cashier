@@ -39,31 +39,37 @@ class App extends Component {
     return (
       <div className="card">
         <h1>Cashier</h1>
-        {
-          this.types.map(({ type, label }) => (
-            <OrderButton
-              key={type}
-              label={label}
-              type={type}
-              handleOnClick={this.onAddToOrders}
-            />
-          ))
-        }
-        <hr />
+        <div>
+          {
+            this.types.map(({ type, label }) => (
+              <OrderButton
+                key={type}
+                label={label}
+                type={type}
+                handleOnClick={this.onAddToOrders}
+              />
+            ))
+          }
+        </div>
+        <div>
+          <hr />
+        </div>
+        <button onClick={this.onRemoveLastOrder}>Stornieren</button>
+        <button onClick={this.onResetOrders}>Reset</button>
         {this.state.orders.map((orderType, i) => (
           <div key={i} className="order-item">
             <span>{this.getLabelForOrderType(orderType)}</span>
             <span>{this.formatPrice(this.getPriceForOrderType(orderType))}</span>
           </div>
         ))}
-        <hr />
+        <div>
+          <hr />
+        </div>
         <div>
           <h2 className="order-item">
             <span>Summe:</span>
             <span>{this.formatPrice(this.getSummedPriceOfAllOrders())}</span>
             </h2>
-          <button onClick={this.onRemoveLastOrder}>Stornieren</button>
-          <button onClick={this.onResetOrders}>Reset</button>
         </div>
       </div>
     );
