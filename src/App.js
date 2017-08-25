@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import Divider from './Divider';
-import Price from './Price';
-import OrderButton from './OrderButton';
+import Divider from './components/Divider';
+import Price from './components/Price';
+import OrderButton from './components/OrderButton';
 
 import './App.css';
 
