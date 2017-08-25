@@ -21,15 +21,15 @@ class App extends Component {
     { type: 'knabber', label: 'Knabber', price: 1.95 },
   ]
 
-  onAddOrder = (PriceItem) => {
-    this.setState({ orders: [...this.state.orders, PriceItem] });
+  onAddOrder = (newOrder) => {
+    this.setState({ orders: [...this.state.orders, newOrder] });
   }
 
-  onRemoveLastOrder = (PriceItem) => {
+  onRemoveLastOrder = () => {
     this.setState({ orders: [...this.state.orders.slice(0, -1)] });
   }
 
-  onResetOrders = (PriceItem) => {
+  onResetOrders = () => {
     this.setState({ orders: [] });
   }
 
