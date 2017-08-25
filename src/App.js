@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
+import Card from './components/Card';
 import Divider from './components/Divider';
-import Price from './components/Price';
+import PriceItem from './components/PriceItem';
 import OrderButton from './components/OrderButton';
 
 import './App.css';
@@ -18,15 +19,15 @@ class App extends Component {
     { type: 'knabber', label: 'Knabber', price: 1.95 },
   ]
 
-  onAddOrder = (item) => {
-    this.setState({ orders: [...this.state.orders, item] });
+  onAddOrder = (PriceItem) => {
+    this.setState({ orders: [...this.state.orders, PriceItem] });
   }
 
-  onRemoveLastOrder = (item) => {
+  onRemoveLastOrder = (PriceItem) => {
     this.setState({ orders: [...this.state.orders.slice(0, -1)] });
   }
 
-  onResetOrders = (item) => {
+  onResetOrders = (PriceItem) => {
     this.setState({ orders: [] });
   }
 
@@ -44,9 +45,10 @@ class App extends Component {
   }
 
   render() {
+    const { orders } = this.state;
+
     return (
-      <div className="card">
-        <h1>Cashier</h1>
+      <Card title="Cashier">
         <div className="button-group">
           {this.types.map(({ type, label }) => (
             <OrderButton key={type} label={label} type={type} handleOnClick={this.onAddOrder} />
@@ -60,24 +62,27 @@ class App extends Component {
           <button onClick={this.onResetOrders}>Reset</button>
         </div>
 
-        {this.state.orders.length > 0 && <Divider />}
+        {orders.length > 0 && <Divider />}
 
-        {this.state.orders.map((orderType, i) => (
-          <div key={i} className="order-item">
-            <span>{this.getLabelForOrderType(orderType)}</span>
-            <Price value={this.getPriceForOrderType(orderType)} />
-          </div>
+        {orders.map((orderType, i) => (
+          <PriceItem
+            key={i}
+            label={this.getLabelForOrderType(orderType)}
+            price={this.getPriceForOrderType(orderType)}
+          />
         ))}
 
         <Divider />
 
         <div>
-          <h2 className="order-item">
-            <span>Summe:</span>
-            <Price value={this.getTotalPrice()} />
+          <h2>
+            <PriceItem
+              label="Total"
+              price={this.getTotalPrice()}
+            />
           </h2>
         </div>
-      </div>
+      </Card>
     );
   }
 }
