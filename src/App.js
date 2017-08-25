@@ -31,11 +31,11 @@ class App extends Component {
     this.setState({ orders: [] });
   }
 
-  getPriceForOrderType(type) {
+  getPriceForOrderType = (type) => {
     return this.types.find(t => t.type === type).price;
   }
 
-  getLabelForOrderType(type) {
+  getLabelForOrderType = (type) => {
     return this.types.find(t => t.type === type).label;
   }
 
