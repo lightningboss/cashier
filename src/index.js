@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import initReactFastclick from 'react-fastclick';
 
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './lib/registerServiceWorker';
 
 import './index.css';
 import App from './App';
